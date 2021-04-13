@@ -1,0 +1,54 @@
+{
+    "name": "japananimetime/sberbank",
+    "description": "Sberbank API helper",
+    "keywords": [
+        "japananimetime",
+        "sberbank"
+    ],
+    "homepage": "https://github.com/japananimetime/sber-bank",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Shinrai Hikaro",
+            "email": "japananimetime@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Japananimetime\\Sberbank\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Japananimetime\\Sberbank\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Japananimetime\\Sberbank\\SberbankServiceProvider"
+            ],
+            "aliases": {
+                "Sberbank": "Japananimetime\\Sberbank\\SberbankFacade"
+            }
+        }
+    }
+}
