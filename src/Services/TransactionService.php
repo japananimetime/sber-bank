@@ -25,18 +25,17 @@ class TransactionService
      */
     public function register($order, $amount, $user, $jsonParams, $expirationDate = null)
     {
-
         $data = [
             'orderNumber'        => $order->id,
             'amount'             => $amount * 100, // Tenge consists of 100 tiyns
-            'currency'           => Sberbank::getCurrency(),
+            //'currency'           => Sberbank::getCurrency(),
             'returnUrl'          => Sberbank::getReturnURL(),
             'failUrl'            => Sberbank::getFailURL(),
             'pageView'           => Sberbank::getPageView(),
             'description'        => $order->description,
             'clientId'           => $user->clientId, //TODO Add to user migration
             'merchantLogin'      => Sberbank::getMerchantLogin(),
-            'jsonParams'         => $jsonParams,
+            'jsonParams'         => json_encode($jsonParams),
             'sessionTimeoutSecs' => Sberbank::getSessionTimeOutSeconds(),
             'expirationDate'     => $expirationDate,
             'bindingId'          => $user->bindingId, //TODO Add to user migration
@@ -45,15 +44,15 @@ class TransactionService
             'phone'              => $user->phone, //TODO Add to user migration
         ];
 
-        $data = array_merge($data, $this->getAuthenticationData());
+        $data = array_merge($data, Sberbank::getAuthenticationData());
 
         $response = Http
-            ::dd()
-            ->asForm()
-            ->post(config('SBER_ENDPOINT') . 'register.do', $data)
+            ::asForm()
+            ->post(config('sberbank.SBER_ENDPOINT') . 'register.do', $data)
         ;
 
         $responseData = $response->json();
+
 
         SberTransaction
             ::create(
@@ -116,3 +115,4 @@ class TransactionService
     }
 }
 
+https://souschef.kz/?orderId=ad90a222-fa15-7610-a246-9b1800acbac0&lang=ru

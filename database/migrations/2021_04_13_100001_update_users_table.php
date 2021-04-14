@@ -13,11 +13,13 @@ class UpdateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('sber_transactions', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->id();
             $table->string('clientId');
             $table->string('bindingId');
-            $table->string('phone');
+            if(!Schema::hasColumn('users', 'phone')) {
+                $table->string('phone');
+            }
             $table->timestamps();
         });
     }

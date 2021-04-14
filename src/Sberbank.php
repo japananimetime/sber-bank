@@ -9,22 +9,22 @@ class Sberbank
     public const TYPE_TOKEN = 'Token';
     public const TYPE_ERROR = 'No auth defined in env';
 
-    public function getUsername()
+    public static function getUsername()
     {
         return env('SBER_USERNAME');
     }
 
-    public function getPassword()
+    public static function getPassword()
     {
         return env('SBER_PASSWORD');
     }
 
-    public function getToken()
+    public static function getToken()
     {
         return env('SBER_TOKEN');
     }
 
-    public function getCurrentAuthorisationMethod()
+    public static function getCurrentAuthorisationMethod()
     {
         if(env('SBER_TOKEN')) {
             return self::TYPE_TOKEN;
@@ -35,15 +35,17 @@ class Sberbank
         return self::TYPE_ERROR;
     }
 
-    public function getAuthenticationData()
+    public static function getAuthenticationData()
     {
-        if($this->getCurrentAuthorisationMethod() == self::TYPE_TOKEN) {
-            return $this->getToken();
-        }
-        if($this->getCurrentAuthorisationMethod() == self::TYPE_PASSWORD) {
+        if(self::getCurrentAuthorisationMethod() == self::TYPE_TOKEN) {
             return [
-                $this->getUsername(),
-                $this->getPassword()
+                'token' => self::getToken()
+            ];
+        }
+        if(self::getCurrentAuthorisationMethod() == self::TYPE_PASSWORD) {
+            return [
+                'userName' => self::getUsername(),
+                'password' => self::getPassword()
             ];
         }
     }
@@ -55,31 +57,31 @@ class Sberbank
 
     public static function getPageView()
     {
-        return config('SBER_PAGE_VIEW');
+        return config('sberbank.SBER_PAGE_VIEW');
     }
 
     public static function getEndpoint()
     {
-        return config('SBER_ENDPOINT');
+        return config('sberbank.SBER_ENDPOINT');
     }
 
     public static function getCurrency()
     {
-        return config('SBER_CURRENCY', 'KZT');
+        return config('sberbank.SBER_CURRENCY', 'KZT');
     }
 
     public static function getSessionTimeOutSeconds()
     {
-        return config('SBER_SESSION_TIMEOUT_SECONDS');
+        return config('sberbank.SBER_SESSION_TIMEOUT_SECONDS');
     }
 
     public static function getReturnURL()
     {
-        return config('SBER_RETURN_URL');
+        return config('sberbank.SBER_RETURN_URL');
     }
 
     public static function getFailURL()
     {
-        return config('SBER_FAIL_URL');
+        return config('sberbank.SBER_FAIL_URL');
     }
 }
