@@ -8,6 +8,6 @@ return [
     'SBER_ENDPOINT' => 'https://3dsec.sberbank.kz/payment/rest/',
     'SBER_CURRENCY' => 'KZT',
     'SBER_SESSION_TIMEOUT_SECONDS' => 1200,
-    'SBER_RETURN_URL' => '',
-    'SBER_FAIL_URL' => '',
+    'SBER_RETURN_URL' => '/api/callback/success',
+    'SBER_FAIL_URL' => '/api/callback/failure',
 ];

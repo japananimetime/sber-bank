@@ -75,13 +75,13 @@ class Sberbank
         return config('sberbank.SBER_SESSION_TIMEOUT_SECONDS');
     }
 
-    public static function getReturnURL()
+    public static function getReturnURL(): string
     {
-        return config('sberbank.SBER_RETURN_URL');
+        return env('APP_URL') . config('sberbank.SBER_RETURN_URL');
     }
 
-    public static function getFailURL()
+    public static function getFailURL(): string
     {
-        return config('sberbank.SBER_FAIL_URL');
+        return env('APP_URL') . config('sberbank.SBER_FAIL_URL');
     }
 }
