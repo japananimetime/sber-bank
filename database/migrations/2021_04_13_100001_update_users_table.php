@@ -14,13 +14,11 @@ class UpdateUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->id();
             $table->string('clientId');
             $table->string('bindingId');
             if(!Schema::hasColumn('users', 'phone')) {
                 $table->string('phone');
             }
-            $table->timestamps();
         });
     }
 
